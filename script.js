@@ -10,6 +10,7 @@ async function fetchAllPokemon() {
 }
 
 async function fetchPokemon(mon) {
+    console.log(`Fetching data for ${mon.name}...`)
     const response = await fetch(mon.url);
     const data = await response.json();
     const outputHeader = document.querySelector(`#${mon.name}`);
@@ -23,23 +24,29 @@ async function fetchPokemon(mon) {
     outputHeader.appendChild(pokemonOutput);
 }
 
-function outputPokemonList(data){
+function outputPokemonList(data) {
     console.log("outputting pokemon...");
+
     const section = document.querySelector("section");
     const myArticle = document.createElement("article");
-    for (const mon of data.results){
-        myArticle.innerHTML += `
-        <h2 id = "${mon.name}">Name: <a href="${mon.url}">${mon.name}</a></h2>
-        
+
+    for (const mon of data.results) {
+
+        const heading = document.createElement("h2");
+        heading.id = mon.name;
+        heading.innerHTML = `
+            Name: <a href="${mon.url}">${mon.name}</a>
         `;
-        let button = document.createElement("button");
+
+        const button = document.createElement("button");
         button.textContent = `Show ${mon.name} info`;
-        button.addEventListener("click", fetchPokemon(`${mon.url}`));
 
+        button.addEventListener("click", () => fetchPokemon(mon));
+
+        myArticle.appendChild(heading);
         myArticle.appendChild(button);
-        fetchPokemon(mon);
-
     }
+
     section.appendChild(myArticle);
 }
 

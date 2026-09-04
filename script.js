@@ -19,6 +19,9 @@ async function fetchPokemon(mon) {
     
     pokemonOutput.innerHTML = `
     <img src="${data.sprites.front_default}">
+    <p>Height: ${data.height}</p>
+    <p>Weight: ${data.weight}</p>
+    <p>Type: ${data.types[0].type.name}</p>
     `;
 
     outputHeader.appendChild(pokemonOutput);

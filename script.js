@@ -41,7 +41,10 @@ function outputPokemonList(data) {
         const button = document.createElement("button");
         button.textContent = `Show ${mon.name} info`;
 
-        button.addEventListener("click", () => fetchPokemon(mon));
+        button.addEventListener("click", () => {
+            fetchPokemon(mon);
+            button.disabled = true;
+        })
 
         myArticle.appendChild(heading);
         myArticle.appendChild(button);
